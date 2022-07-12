@@ -26,24 +26,28 @@ router.get('/userProfile', jwtHelper.verifyJwtToken ,ctrlUser.userProfile)
 
 router.post('/login-with-sso', oktaJwtVerifier.OKTA_Jwt_verifier ,ctrlUser.authenticate_sso)
 
-router.get("/login-with-google", passport.authenticate("google", {
-        scope: ["profile", "email"]
-      })
+// router.get("/login-with-google", passport.authenticate("google", {
+//         scope: ["profile", "email"]
+//       })
     
-)
+// )
 
-router.get("/login-with-google/callback", passport.authenticate("google", (req, res) => {
-    successRedirect: '//http:localhost:4200';
-    failureRedirect: '//http:localhost:4200/sign-up'
+// router.get("/login-with-google/callback", passport.authenticate("google", (req, res) => {
+//     successRedirect: '//http:localhost:4200';
+//     failureRedirect: '//http:localhost:4200/sign-up'
     
-}))
+// }))
 
 
 
-router.get("/logout", (req,res) => {
+// router.get("/logout", (req,res) => {
 
-})
+// })
 
+// To clear database for testing
+router.post("/clearUsers", (req, res) => {
+  User.deleteMany({}).then(res.send(200)).catch( (err) => res.send(422))
+  })
 
 
 

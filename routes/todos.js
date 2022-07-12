@@ -42,9 +42,10 @@ router.post('/todos', jwtHelper.verifyJwtToken ,(req,res) => {
     // newTodo.save();
     newTodo.save().then((todoDoc) => {
         // The full todo document is returned
-        res.send(todoDoc);
+        res.status(200).send(todoDoc);
     }).catch(e => {
         console.log(e);
+        res.status(404)
     })
     // res.send("Done")
     
@@ -53,7 +54,7 @@ router.post('/todos', jwtHelper.verifyJwtToken ,(req,res) => {
 
 router.get('/todosGet', jwtHelper.verifyJwtToken ,(req,res) => {
     console.log("You have hit endpoint")
-    Todo.find({ usedBy: { $eq: req._id }}).then( (todos) => res.send({ msg : todos}) ).catch((err) => res.send("Error"))
+    Todo.find({ usedBy: { $eq: req._id }}).then( (todos) => res.status(200).send({ msg : todos}) ).catch((err) => res.send("Error"))
   
 }) 
 
@@ -63,7 +64,7 @@ router.delete('/todos/:id', (req, res,) => {
     Todo.findByIdAndRemove({
         _id: req.params.id
     }).then((removedTodoDoc) => {
-        res.json(removedTodoDoc)
+        res.status(200).json(removedTodoDoc)
     }).catch(e => {
         console.log(e)})
 })

@@ -23,7 +23,7 @@ module.exports.register = (req, res, next) => {
     
     newUser.save((err,userInfo) => {
         if(!err) {
-            res.send(userInfo) // send the user info 
+            res.status(200).send(userInfo) // send the user info 
         }
         else
             if (err.code == 11000) { res.status(422).send(['Duplicate email address found.'])}
